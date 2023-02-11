@@ -7,6 +7,9 @@
 #include <android/log.h>
 #include <pthread.h>
 #include <unistd.h>
+extern "C" {
+#include "libavutil/avutil.h"
+}
 
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, "keymatch", __VA_ARGS__)
 
@@ -36,7 +39,8 @@ extern "C" JNIEXPORT jstring JNICALL
 Java_com_example_testndk_MainActivity_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
-    std::string hello = "Hello from C++";
+    std::string hello = av_version_info();
+    LOGD("yangliu output:%s", hello.c_str());
     return env->NewStringUTF(hello.c_str());
 }
 

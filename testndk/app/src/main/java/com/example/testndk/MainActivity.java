@@ -20,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
+        System.loadLibrary("avutil");
+        System.loadLibrary("swresample");
+        System.loadLibrary("avcodec");
+        System.loadLibrary("avfilter");
+        System.loadLibrary("swscale");
+        System.loadLibrary("avformat");
     }
 
     private ActivityMainBinding binding;
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                playVideo("/sdcard/DCIM/HEVC.mp4", surfaceHolder.getSurface());
+//                playVideo("/sdcard/DCIM/HEVC.mp4", surfaceHolder.getSurface());
             }
 
             @Override

@@ -9,6 +9,57 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project("testndk")
 
+# 支持gnu++11
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+set(ffmpeg_lib_dir ${CMAKE_SOURCE_DIR}/../../../libs/${ANDROID_ABI})
+set(ffmpeg_head_dir ${CMAKE_SOURCE_DIR})
+
+# 2. 添加头文件目录
+include_directories(${ffmpeg_head_dir}/include)
+
+# 3. 添加ffmpeg相关的so库
+add_library( avcodec
+        SHARED
+        IMPORTED )
+set_target_properties( avcodec
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libavcodec.so )
+
+add_library( avfilter
+        SHARED
+        IMPORTED)
+set_target_properties( avfilter
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libavfilter.so )
+
+add_library( avformat
+        SHARED
+        IMPORTED)
+set_target_properties( avformat
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libavformat.so )
+
+add_library( avutil
+        SHARED
+        IMPORTED )
+set_target_properties( avutil
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libavutil.so )
+
+add_library( swresample
+        SHARED
+        IMPORTED )
+set_target_properties( swresample
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libswresample.so )
+
+add_library( swscale
+        SHARED
+        IMPORTED)
+set_target_properties( swscale
+        PROPERTIES IMPORTED_LOCATION
+        ${ffmpeg_lib_dir}/libswscale.so )
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -42,6 +93,12 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
                        native-lib
+                        avcodec
+                        avfilter
+                        avformat
+                        avutil
+                        swresample
+                        swscale
                        mediandk
                         android
 
