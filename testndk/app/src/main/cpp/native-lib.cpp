@@ -79,17 +79,17 @@ Java_com_example_testndk_MainActivity_playVideo(
     pthread_t thread;
     media_status_t err = AMediaExtractor_setDataSource(mediaExtractor, filePath);
     if (err != AMEDIA_OK) {
-        LOGD("set data source err");
+        LOGD("yangliu set data source err:%s", filePath);
         return;
     }
     int numTracks = AMediaExtractor_getTrackCount(mediaExtractor);
     for (int i = 0; i < numTracks; i++) {
         AMediaFormat *format = AMediaExtractor_getTrackFormat(mediaExtractor, i);
         const char *s = AMediaFormat_toString(format);
-        LOGD("HWCodecPlayer::InitDecoder track %d format: %s", i, s);
+        LOGD("yangliu::InitDecoder track %d format: %s", i, s);
         const char *mime;
         if (!AMediaFormat_getString(format, AMEDIAFORMAT_KEY_MIME, &mime)) {
-            LOGD("HWCodecPlayer::InitDecoder no mime type");
+            LOGD("yangliu::InitDecoder no mime type");
             return;
         } else if (!strncmp(mime, "video/", 6)) {
             AMediaExtractor_selectTrack(mediaExtractor, i);
